@@ -2,33 +2,36 @@ import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit,
 
 type Constructor<T> = new (...args:any[])=>T
 export function mixinLifeCycleHooks<T extends Constructor<{}>>(dir: T) {
-  return class extends dir implements OnInit, OnChanges, OnDestroy, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
+  return class extends dir implements OnInit, OnDestroy, OnChanges, OnDestroy, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked {
     private name = `===> ${this.constructor.name}`;
+    constructor(...args:any[]){
+      super();
+      console.log(`%c${this.name}: constructor`, 'background-color: yellow; color: green;');
+    }
     ngOnChanges(changes: SimpleChanges): void {
-      console.warn(`${this.name}: ngOnChanges`);
+      console.log(`%c${this.name}: ngOnChanges`, 'background-color: yellowgreen');
     }
     ngOnDestroy(): void {
-      console.warn(`${this.name}: ngOnDestroy`);
+      console.log(`%c${this.name}: ngOnDestroy`, 'background-color: red');
     }
     ngDoCheck(): void {
-      console.warn(`${this.name}: ngDoCheck`);
+      console.log(`%c${this.name}: ngDoCheck`, 'background-color: cyan;color: blue;');
     }
     ngAfterContentInit(): void {
-      console.warn(`${this.name}: ngAfterContentInit`);
+      console.log(`%c${this.name}: ngAfterContentInit`, 'background-color: orange');
     }
     ngAfterContentChecked(): void {
-      console.warn(`${this.name}: ngAfterContentChecked`);
+      console.log(`%c${this.name}: ngAfterContentChecked`, 'background-color: green');
     }
     ngAfterViewInit(): void {
-      console.warn(`${this.name}: ngAfterViewInit`);
+      console.log(`%c${this.name}: ngAfterViewInit`, 'background-color: purple');
     }
     ngAfterViewChecked(): void {
-      console.warn(`${this.name}: ngAfterViewChecked`);
+      console.log(`%c${this.name}: ngAfterViewChecked`, 'background-color: hotpink; color: green');
     }
     ngOnInit() {
-     console.warn(`${this.name}: onInit`);
+     console.log(`%c${this.name}: onInit`, 'background-color: blue');
     }
-
 
   }
 }
